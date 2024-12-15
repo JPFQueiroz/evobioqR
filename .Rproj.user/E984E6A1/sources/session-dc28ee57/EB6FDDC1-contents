@@ -1,0 +1,12 @@
+Package: evobioqR
+Type: Package
+Title: EvoBioqR: Package for Evolutionary Biochemistry Research
+Version: 0.1.0
+Author: João Pedro Fernandes Queiroz
+Maintainer: João Pedro Fernandes Queiroz <queiroz_pedro22@outlook.com>
+Description: A versatile collection of functions designed for biochemistry, molecular biology, 
+    and evolutionary studies of biomolecules.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.2
