@@ -41,6 +41,7 @@
 #' saltify(100, 50, 30, 20)
 #'
 #' @export
+#' @importFrom stats lm predict
 saltify <- function(initial_volume,
                     desired_percentage,
                     starting_percentage,
