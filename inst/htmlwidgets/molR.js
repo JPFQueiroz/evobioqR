@@ -21,7 +21,10 @@ HTMLWidgets.widget({
 
           // Load structure
           if (x.file) {
-            molstarLib.loadStructure(viewer, x.file, { format: x.file.startsWith('http') ? null : "pdb" })
+            molstarLib.loadStructure(viewer, x.file, { format: x.file.startsWith('http') ? null : "pdb",
+              overrideRepresentation: x.overrideRepresentation,
+              addRepresentation: x.addRepresentation
+            })
               .then(() => {
                 // Apply selections using Molscript
                 if (x.selections && Array.isArray(x.selections)) {
@@ -35,32 +38,6 @@ HTMLWidgets.widget({
                     }
                   });
                 }
-
-                // INSERT CUSTOM REPRESENTATION HERE
-//                const customParams = {
-//                  type: x.representationType || 'ball-and-stick', // default to ball-and-stick if not specified
-//                  colorTheme: x.colorTheme || 'uniform', // default to uniform if not specified
-//                  sizeTheme: x.sizeTheme || 'uniform', // default to uniform if not specified
-//                  ignoreHydrogens: x.ignoreHydrogens || false,
-//                  quality: x.quality || 'auto',
-//                  carbonColor: x.carbonColor || 'chain-id',
-//                  showCarbohydrateSymbol: x.showCarbohydrateSymbol || false
-//                };
-//                molstarLib.applyCustomRepresentation(plugin, customParams);
-//
-//                // Apply other visual effects
-//                if (x.transparency > 0) {
-//                  molstarLib.setTransparency(viewer, x.transparency);
-//                }
-//                if (x.overpaintColor) {
-//                  molstarLib.setOverpaintColor(plugin, x.overpaintColor);
-//                }
-//                if (x.emissiveStrength > 0) {
-//                  molstarLib.setEmissiveStrength(plugin, x.emissiveStrength);
-//                }
-//                if (x.substanceMaterial) {
-//                  molstarLib.setSubstanceMaterial(plugin, x.substanceMaterial);
-//                }
 
                 // Change background color
                 if (x.backgroundColor) {

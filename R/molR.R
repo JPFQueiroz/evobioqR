@@ -7,6 +7,52 @@
 #' @param height Height of the widget.
 #' @param backgroundColor A string specifying the background color.
 #'   Supported color names include any of the X11 colors (https://www.w3.org/TR/css-color-3/#svg-color).
+#' @param overrideRepresentation A string specifying the representation type of the polymer to add.
+#'   Supported representations include:
+#'   \itemize{
+#'     \item "backbone"
+#'     \item "ball-and-stick"
+#'     \item "cartoon"
+#'     \item "gaussian-surface"
+#'     \item "gaussian-volume"
+#'     \item "interactions"
+#'     \item "label"
+#'     \item "line"
+#'     \item "molecular-surface"
+#'     \item "orientation"
+#'     \item "point"
+#'     \item "putty"
+#'     \item "spacefill"
+#'   }
+#'   Supported color themes include:
+#'   \itemize{
+#'     \item "atom-id"
+#'     \item "element-index"
+#'     \item "element-symbol"
+#'     \item "formal-charge"
+#'     \item "occupancy"
+#'     \item "uncertainty"
+#'     \item "chain-id"
+#'     \item "chain-instance"
+#'     \item "entity-id"
+#'     \item "entity-source"
+#'     \item "model-index"
+#'     \item "polymer-chain-id"
+#'     \item "polymer-chain-instance"
+#'     \item "structure-index"
+#'     \item "cartoon"
+#'     \item "external-volume"
+#'     \item "illustrative"
+#'     \item "illustrative-type"
+#'     \item "uniform"
+#'     \item "accessible-surface-area"
+#'     \item "hydrophobicity"
+#'     \item "molecule-type"
+#'     \item "residue-name"
+#'     \item "secondary-structure"
+#'     \item "sequence-id"
+#'   }#' @param addRepresentation A string specifying the additional representation type of the polymer to add.
+#'   Supported representations are the same as listed above.
 #' @param selections A string specifying the chain(s) and the range of residues to select, e.g. "A 12-38, A 98-124, B 50-99".
 #' @return An HTML widget displaying the molecular structure
 #'
@@ -20,7 +66,8 @@
 molR <- function(file = NULL,
                  backgroundColor = NULL,
                  selections = NULL,
-                 # representationType = "ball-and-stick",
+                 overrideRepresentation = NULL,
+                 addRepresentation = NULL,
                  # colorTheme = "uniform",
                  # sizeTheme = "uniform",
                  # ignoreHydrogens = FALSE,
@@ -37,8 +84,9 @@ molR <- function(file = NULL,
     name = "molR",
     x = list(file = paste(readLines(file, warn = FALSE), collapse = "\n"),
              backgroundColor = backgroundColor,
-             selections = as.list(selections)#,
-             # representationType = representationType,
+             selections = as.list(selections),
+             overrideRepresentation = overrideRepresentation,
+             addRepresentation = addRepresentation#,
              # colorTheme = colorTheme,
              # sizeTheme = sizeTheme,
              # ignoreHydrogens = ignoreHydrogens,

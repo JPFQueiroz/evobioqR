@@ -8,6 +8,8 @@ molR(
   file = NULL,
   backgroundColor = NULL,
   selections = NULL,
+  overrideRepresentation = NULL,
+  addRepresentation = NULL,
   width = 600,
   height = 400
 )
@@ -19,6 +21,27 @@ molR(
 Supported color names include any of the X11 colors (https://www.w3.org/TR/css-color-3/#svg-color).}
 
 \item{selections}{A string specifying the chain(s) and the range of residues to select, e.g. "A 12-38, A 98-124, B 50-99".}
+
+\item{overrideRepresentation}{A string specifying the representation type of the polymer to add.
+Supported representations include:
+\itemize{
+  \item "backbone"
+  \item "ball-and-stick"
+  \item "cartoon"
+  \item "gaussian-surface"
+  \item "gaussian-volume"
+  \item "interactions"
+  \item "label"
+  \item "line"
+  \item "molecular-surface"
+  \item "orientation"
+  \item "point"
+  \item "putty"
+  \item "spacefill"
+}}
+
+\item{addRepresentation}{A string specifying the additional representation type of the polymer to add.
+Supported representations are the same as listed above.}
 
 \item{width}{Width of the widget.}
 
