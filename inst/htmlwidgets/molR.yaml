@@ -1,0 +1,5 @@
+dependencies:
+ - name: molstar
+   version: 4.10.0
+   src: htmlwidgets
+   script: ./lib/molstar/index.js

@@ -1,0 +1,6 @@
+dependencies:
+ - name: molstar
+   version: 4.10.0
+   src: htmlwidgets
+   script: ./lib/molstar/molstar.js
+   stylesheet: ./lib/molstar/molstar.css
