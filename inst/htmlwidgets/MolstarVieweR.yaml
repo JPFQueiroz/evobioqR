@@ -1,6 +1,7 @@
 dependencies:
- - name: molstar
-   version: 4.10.0
-   src: htmlwidgets
-   script: ./lib/molstar/molstar.js
-   stylesheet: ./lib/molstar/molstar.css
+  - name: molstar
+    version: 4.10.0
+    src:
+      href: "https://jpfqueiroz.github.io/evobioqR_dependencies/lib/molstar/"
+    script: "molstar.js"
+    stylesheet: "molstar.css"
