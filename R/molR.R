@@ -7,54 +7,23 @@
 #' @param height Height of the widget.
 #' @param backgroundColor A string specifying the background color.
 #'   Supported color names include any of the X11 colors (https://www.w3.org/TR/css-color-3/#svg-color).
-#' @param overrideRepresentation A string specifying the representation type of the polymer to add.
-#'   Supported representations include:
-#'   \itemize{
-#'     \item "backbone"
-#'     \item "ball-and-stick"
-#'     \item "cartoon"
-#'     \item "gaussian-surface"
-#'     \item "gaussian-volume"
-#'     \item "interactions"
-#'     \item "label"
-#'     \item "line"
-#'     \item "molecular-surface"
-#'     \item "orientation"
-#'     \item "point"
-#'     \item "putty"
-#'     \item "spacefill"
-#'   }
-#'   Supported color themes include:
-#'   \itemize{
-#'     \item "atom-id"
-#'     \item "element-index"
-#'     \item "element-symbol"
-#'     \item "formal-charge"
-#'     \item "occupancy"
-#'     \item "uncertainty"
-#'     \item "chain-id"
-#'     \item "chain-instance"
-#'     \item "entity-id"
-#'     \item "entity-source"
-#'     \item "model-index"
-#'     \item "polymer-chain-id"
-#'     \item "polymer-chain-instance"
-#'     \item "structure-index"
-#'     \item "cartoon"
-#'     \item "external-volume"
-#'     \item "illustrative"
-#'     \item "illustrative-type"
-#'     \item "uniform"
-#'     \item "accessible-surface-area"
-#'     \item "hydrophobicity"
-#'     \item "molecule-type"
-#'     \item "residue-name"
-#'     \item "secondary-structure"
-#'     \item "sequence-id"
-#'   }#' @param addRepresentation A string specifying the additional representation type of the polymer to add.
+#' @param overrideRepresentation A string vector specifying the representation type and the color theme of the polymer to add.
+#'   Supported representations include: "backbone", "ball-and-stick", "cartoon", "gaussian-surface",
+#'   "gaussian-volume", "interactions", "label", "line", "molecular-surface", "orientation", "point",
+#'   "putty", "spacefill".
+#'
+#'   Supported color themes include: "atom-id", "element-index", "element-symbol", "formal-charge",
+#'   "occupancy", "uncertainty", "chain-id", "chain-instance", "entity-id", "entity-source",
+#'   "model-index", "polymer-chain-id", "polymer-chain-instance", "structure-index", "cartoon",
+#'   "external-volume", "illustrative", "illustrative-type", "uniform", "accessible-surface-area",
+#'   "hydrophobicity", "molecule-type", "residue-name", "secondary-structure", "sequence-id".
+#'
+#' @param addRepresentation A string vector specifying the additional representation type with color theme of the polymer to add.
 #'   Supported representations are the same as listed above.
+#' @param quickStyles A string specifying the quick style to apply.
+#'   Supported options are "illustrative" and "stylize current".
 #' @param selections A string specifying the chain(s) and the range of residues to select, e.g. "A 12-38, A 98-124, B 50-99".
-#' @return An HTML widget displaying the molecular structure
+#' @return An HTML widget displaying the molecular structure.
 #'
 #' @references
 #' Sehnal, D., Bittrich, S., Deshpande, M., Svobodová, R., Berka, K., Bazgier, V., ... & Rose, A. S. (2021).
@@ -68,13 +37,7 @@ molR <- function(file = NULL,
                  selections = NULL,
                  overrideRepresentation = NULL,
                  addRepresentation = NULL,
-                 # colorTheme = "uniform",
-                 # sizeTheme = "uniform",
-                 # ignoreHydrogens = FALSE,
-                 # quality = "auto",
-                 # carbonColor = "chain-id",
-                 # showCarbohydrateSymbol = FALSE,
-                 # transparency = 0,
+                 quickStyles = NULL,
                  width = 600, height = 400) {
   if (is.null(file)) {
     stop("Provide `.pdb` file")
@@ -85,15 +48,11 @@ molR <- function(file = NULL,
     x = list(file = paste(readLines(file, warn = FALSE), collapse = "\n"),
              backgroundColor = backgroundColor,
              selections = as.list(selections),
-             overrideRepresentation = overrideRepresentation,
-             addRepresentation = addRepresentation#,
-             # colorTheme = colorTheme,
-             # sizeTheme = sizeTheme,
-             # ignoreHydrogens = ignoreHydrogens,
-             # quality = quality,
-             # carbonColor = carbonColor,
-             # showCarbohydrateSymbol = showCarbohydrateSymbol,
-             # transparency = transparency
+             overrideRepresentation = list(type = overrideRepresentation[1],
+                                           colorTheme = overrideRepresentation[2]),
+             addRepresentation = list(type = addRepresentation[1],
+                                      colorTheme = addRepresentation[2]),
+             quickStyles = quickStyles
              ),
     width = width,
     height = height,

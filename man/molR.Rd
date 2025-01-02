@@ -10,6 +10,7 @@ molR(
   selections = NULL,
   overrideRepresentation = NULL,
   addRepresentation = NULL,
+  quickStyles = NULL,
   width = 600,
   height = 400
 )
@@ -22,33 +23,29 @@ Supported color names include any of the X11 colors (https://www.w3.org/TR/css-c
 
 \item{selections}{A string specifying the chain(s) and the range of residues to select, e.g. "A 12-38, A 98-124, B 50-99".}
 
-\item{overrideRepresentation}{A string specifying the representation type of the polymer to add.
-Supported representations include:
-\itemize{
-  \item "backbone"
-  \item "ball-and-stick"
-  \item "cartoon"
-  \item "gaussian-surface"
-  \item "gaussian-volume"
-  \item "interactions"
-  \item "label"
-  \item "line"
-  \item "molecular-surface"
-  \item "orientation"
-  \item "point"
-  \item "putty"
-  \item "spacefill"
-}}
+\item{overrideRepresentation}{A string vector specifying the representation type and the color theme of the polymer to add.
+  Supported representations include: "backbone", "ball-and-stick", "cartoon", "gaussian-surface",
+  "gaussian-volume", "interactions", "label", "line", "molecular-surface", "orientation", "point",
+  "putty", "spacefill".
 
-\item{addRepresentation}{A string specifying the additional representation type of the polymer to add.
+  Supported color themes include: "atom-id", "element-index", "element-symbol", "formal-charge",
+  "occupancy", "uncertainty", "chain-id", "chain-instance", "entity-id", "entity-source",
+  "model-index", "polymer-chain-id", "polymer-chain-instance", "structure-index", "cartoon",
+  "external-volume", "illustrative", "illustrative-type", "uniform", "accessible-surface-area",
+  "hydrophobicity", "molecule-type", "residue-name", "secondary-structure", "sequence-id".}
+
+\item{addRepresentation}{A string vector specifying the additional representation type with color theme of the polymer to add.
 Supported representations are the same as listed above.}
+
+\item{quickStyles}{A string specifying the quick style to apply.
+Supported options are "illustrative" and "stylize current".}
 
 \item{width}{Width of the widget.}
 
 \item{height}{Height of the widget.}
 }
 \value{
-An HTML widget displaying the molecular structure
+An HTML widget displaying the molecular structure.
 }
 \description{
 Visualize molecular structures using a custom Mol* viewer.

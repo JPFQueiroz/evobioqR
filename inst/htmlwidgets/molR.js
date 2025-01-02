@@ -23,7 +23,8 @@ HTMLWidgets.widget({
           if (x.file) {
             molstarLib.loadStructure(viewer, x.file, { format: x.file.startsWith('http') ? null : "pdb",
               overrideRepresentation: x.overrideRepresentation,
-              addRepresentation: x.addRepresentation
+              addRepresentation: x.addRepresentation,
+              quickStyles: x.quickStyles
             })
               .then(() => {
                 // Apply selections using Molscript
