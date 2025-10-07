@@ -2,19 +2,32 @@
 #'
 #' Visualize molecular structures using a custom Mol* viewer embedded in R Markdown.
 #'
-#' @param file The file path to a PDB or MolViewSpec (MVSJ) file.
+#' @param file The file path to a PDB or MolViewSpec (.mvsj) file.
 #' @param width Width of the widget.
 #' @param height Height of the widget.
-#' @param backgroundColor A string specifying the background color (optional, may override MVSJ settings).
-#' @param overrideRepresentation A string vector specifying the representation type and color theme (ignored for MVSJ files).
-#' @param addRepresentation A string vector specifying additional representation type and color theme (ignored for MVSJ files).
-#' @param quickStyles A string specifying the quick style to apply (ignored for MVSJ files).
-#' @param selectionStyles A list specifying selections with their representation type and/or color (ignored for MVSJ files).
+#' @param backgroundColor A string specifying the background color.
+#'   Supported color names include any of the X11 colors (https://www.w3.org/TR/css-color-3/#svg-color).
+#' @param overrideRepresentation A string vector specifying the representation type and the color theme of the polymer to add.
+#'   Supported representations include: "backbone", "ball-and-stick", "cartoon", "gaussian-surface",
+#'   "gaussian-volume", "interactions", "label", "line", "molecular-surface", "orientation", "point",
+#'   "putty", "spacefill".
+#'   Supported color themes include: "atom-id", "element-index", "element-symbol", "formal-charge",
+#'   "occupancy", "uncertainty", "chain-id", "chain-instance", "entity-id", "entity-source",
+#'   "model-index", "polymer-chain-id", "polymer-chain-instance", "structure-index", "cartoon",
+#'   "external-volume", "illustrative", "illustrative-type", "uniform", "accessible-surface-area",
+#'   "hydrophobicity", "molecule-type", "residue-name", "secondary-structure", "sequence-id".
+#' @param addRepresentation A string vector specifying the additional representation type with color theme of the polymer to add.
+#' @param quickStyles A string specifying the quick style to apply.
+#'   Supported options are "illustrative" and "stylize current".
+#' @param selectionStyles A list specifying selections with their representation type and/or color, e.g.,
+#'   `list(list(selection = "A 12-38", representation = "spacefill", color = "red"), list(selection = "B 50-99", representation = "cartoon", color = "blue"))`.
 #' @return An HTML widget displaying the molecular structure.
 #'
 #' @references
 #' Sehnal, D., et al. (2021). Mol* Viewer: modern web app for 3D visualization and analysis of large biomolecular structures.
 #' Nucleic Acids Research, 49(W1), W431–W437.
+#' Midlik, A., et al. (2025). MolViewSpec: a Mol* extension for describing and sharing molecular visualizations.
+#' Nucleic Acids Research, gkaf370.
 #'
 #' @import htmlwidgets
 #' @import jsonlite
