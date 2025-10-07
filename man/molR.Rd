@@ -7,7 +7,7 @@
 molR(
   file = NULL,
   backgroundColor = NULL,
-  selections = NULL,
+  selectionStyles = NULL,
   overrideRepresentation = NULL,
   addRepresentation = NULL,
   quickStyles = NULL,
@@ -16,26 +16,25 @@ molR(
 )
 }
 \arguments{
-\item{file}{The file path to a PDB file.}
+\item{file}{The file path to a PDB or MolViewSpec (.mvsj) file.}
 
 \item{backgroundColor}{A string specifying the background color.
 Supported color names include any of the X11 colors (https://www.w3.org/TR/css-color-3/#svg-color).}
 
-\item{selections}{A string specifying the chain(s) and the range of residues to select, e.g. "A 12-38, A 98-124, B 50-99".}
+\item{selectionStyles}{A list specifying selections with their representation type and/or color, e.g.,
+`list(list(selection = "A 12-38", representation = "spacefill", color = "red"), list(selection = "B 50-99", representation = "cartoon", color = "blue"))`.}
 
 \item{overrideRepresentation}{A string vector specifying the representation type and the color theme of the polymer to add.
-  Supported representations include: "backbone", "ball-and-stick", "cartoon", "gaussian-surface",
-  "gaussian-volume", "interactions", "label", "line", "molecular-surface", "orientation", "point",
-  "putty", "spacefill".
+Supported representations include: "backbone", "ball-and-stick", "cartoon", "gaussian-surface",
+"gaussian-volume", "interactions", "label", "line", "molecular-surface", "orientation", "point",
+"putty", "spacefill".
+Supported color themes include: "atom-id", "element-index", "element-symbol", "formal-charge",
+"occupancy", "uncertainty", "chain-id", "chain-instance", "entity-id", "entity-source",
+"model-index", "polymer-chain-id", "polymer-chain-instance", "structure-index", "cartoon",
+"external-volume", "illustrative", "illustrative-type", "uniform", "accessible-surface-area",
+"hydrophobicity", "molecule-type", "residue-name", "secondary-structure", "sequence-id".}
 
-  Supported color themes include: "atom-id", "element-index", "element-symbol", "formal-charge",
-  "occupancy", "uncertainty", "chain-id", "chain-instance", "entity-id", "entity-source",
-  "model-index", "polymer-chain-id", "polymer-chain-instance", "structure-index", "cartoon",
-  "external-volume", "illustrative", "illustrative-type", "uniform", "accessible-surface-area",
-  "hydrophobicity", "molecule-type", "residue-name", "secondary-structure", "sequence-id".}
-
-\item{addRepresentation}{A string vector specifying the additional representation type with color theme of the polymer to add.
-Supported representations are the same as listed above.}
+\item{addRepresentation}{A string vector specifying the additional representation type with color theme of the polymer to add.}
 
 \item{quickStyles}{A string specifying the quick style to apply.
 Supported options are "illustrative" and "stylize current".}
@@ -48,10 +47,12 @@ Supported options are "illustrative" and "stylize current".}
 An HTML widget displaying the molecular structure.
 }
 \description{
-Visualize molecular structures using a custom Mol* viewer.
+Visualize molecular structures using a custom Mol* viewer embedded in R Markdown.
 }
 \references{
-Sehnal, D., Bittrich, S., Deshpande, M., Svobodová, R., Berka, K., Bazgier, V., ... & Rose, A. S. (2021).
-Mol* Viewer: modern web app for 3D visualization and analysis of large biomolecular structures.
-\emph{Nucleic Acids Research}, \bold{49(W1)}, W431–W437.
+Sehnal, D., et al. (2021). Mol* Viewer: modern web app for 3D visualization and analysis of large biomolecular structures.
+Nucleic Acids Research, 49(W1), W431–W437.
+
+Midlik, A., et al. (2025). MolViewSpec: a Mol* extension for describing and sharing molecular visualizations.
+Nucleic Acids Research, gkaf370.
 }
