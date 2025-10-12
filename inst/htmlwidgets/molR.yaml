@@ -1,6 +1,6 @@
 dependencies:
   - name: molstar
-    version: 4.10.0
+    version: 5.0.0
     src:
       href: "https://jpfqueiroz.github.io/evobioqR_dependencies/lib/molstar/"
     script: "index.js"
