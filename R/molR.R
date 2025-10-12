@@ -2,7 +2,7 @@
 #'
 #' Visualize molecular structures using a custom Mol* viewer embedded in R Markdown.
 #'
-#' @param file The file path to a PDB or MolViewSpec (.mvsj) file.
+#' @param file The file path to a PDB, MolViewSpec (.mvsj), or MolViewSpec ZIP (.mvsx) file.
 #' @param width Width of the widget.
 #' @param height Height of the widget.
 #' @param backgroundColor A string specifying the background color.
@@ -26,6 +26,7 @@
 #' @references
 #' Sehnal, D., et al. (2021). Mol* Viewer: modern web app for 3D visualization and analysis of large biomolecular structures.
 #' Nucleic Acids Research, 49(W1), W431–W437.
+#'
 #' Midlik, A., et al. (2025). MolViewSpec: a Mol* extension for describing and sharing molecular visualizations.
 #' Nucleic Acids Research, gkaf370.
 #'
@@ -40,7 +41,7 @@ molR <- function(file = NULL,
                  quickStyles = NULL,
                  width = 600, height = 400) {
   if (is.null(file)) {
-    stop("Provide a `.pdb` or `.mvsj` file")
+    stop("Provide a `.pdb`, `.mvsj`, or `.mvsx` file")
   }
   if (!file.exists(file)) {
     stop("File not found: ", file)
@@ -48,15 +49,20 @@ molR <- function(file = NULL,
 
   # Validate file extension
   file_ext <- tolower(tools::file_ext(file))
-  if (!file_ext %in% c("pdb", "mvsj")) {
-    stop("File must have a `.pdb` or `.mvsj` extension")
+  if (!file_ext %in% c("pdb", "mvsj", "mvsx")) {
+    stop("File must have a `.pdb`, `.mvsj`, or `.mvsx` extension")
   }
 
   # Read file content based on extension
   file_content <- if (file_ext == "pdb") {
     paste(readLines(file, warn = FALSE), collapse = "\n")
-  } else {
+  } else if (file_ext == "mvsj") {
     jsonlite::read_json(file, simplifyVector = FALSE) # Keep as list for JSON compatibility
+  } else {
+    # Read .mvsx as binary and encode as base64
+    raw_content <- readBin(file, what = "raw", n = file.info(file)$size)
+    if (length(raw_content) == 0) stop("MVSX file is empty or unreadable")
+    jsonlite::base64_enc(raw_content)
   }
 
   # Validate selectionStyles (only for PDB files)
@@ -90,9 +96,9 @@ molR <- function(file = NULL,
       }
     }
   } else {
-    # Warn if parameters are provided with MVSJ files
+    # Warn if parameters are provided with MVSJ or MVSX files
     if (!is.null(selectionStyles) || !is.null(overrideRepresentation) || !is.null(addRepresentation) || !is.null(quickStyles)) {
-      warning("Parameters 'selectionStyles', 'overrideRepresentation', 'addRepresentation', and 'quickStyles' are ignored for MVSJ files.")
+      warning("Parameters 'selectionStyles', 'overrideRepresentation', 'addRepresentation', and 'quickStyles' are ignored for MVSJ and MVSX files.")
     }
   }
 
