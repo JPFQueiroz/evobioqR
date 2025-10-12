@@ -19,7 +19,7 @@ HTMLWidgets.widget({
         molstarLib.initViewer(el.id).then(plugin => {
           viewer = plugin;
 
-          // Load structure or MVSJ state based on fileType
+          // Load structure or MVSJ/MVSX state based on fileType
           if (x.file) {
             if (x.fileType === "pdb") {
               // Existing PDB loading logic
@@ -75,6 +75,35 @@ HTMLWidgets.widget({
                   console.error("Failed to load MVSJ state:", err);
                   el.innerHTML = "Failed to load MolViewSpec state: " + err.message;
                 });
+            } else if (x.fileType === "mvsx") {
+              // Load MVSX state
+              try {
+                console.log('Processing MVSX, base64 length:', x.file.length);
+                const binaryString = atob(x.file);
+                console.log('Decoded binary length:', binaryString.length);
+                const loadData = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                  loadData[i] = binaryString.charCodeAt(i);
+                }
+                molstarLib.loadMVSXState(viewer, loadData, {
+                  sourceUrl: undefined,
+                  sanityChecks: true,
+                  replaceExisting: true
+                })
+                  .then(() => {
+                    if (x.backgroundColor) {
+                      const renderer = plugin.canvas3d && plugin.canvas3d.props.renderer;
+                      molstarLib.setBackgroundColor(plugin, renderer, x.backgroundColor);
+                    }
+                  })
+                  .catch((err) => {
+                    console.error("Failed to load MVSX state:", err);
+                    el.innerHTML = "Failed to load MolViewSpec state: " + err.message;
+                  });
+              } catch (err) {
+                console.error("Failed to process MVSX data:", err);
+                el.innerHTML = "Failed to process MVSX data: " + err.message;
+              }
             } else {
               console.warn("Unsupported file type:", x.fileType);
               el.innerHTML = "Unsupported file type.";
